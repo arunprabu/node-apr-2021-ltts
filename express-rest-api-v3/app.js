@@ -4,8 +4,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+///
 var indexRouter = require('./routes/index');
 const contactsRouter = require('./routes/api/contacts');
+const accountsRouter = require('./routes/api/accounts');
 
 var app = express();
 
@@ -23,6 +25,7 @@ app.use('/', indexRouter);
 
 // API Endpoints
 app.use('/api/contacts', contactsRouter);
+app.use('/api/accounts', accountsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
