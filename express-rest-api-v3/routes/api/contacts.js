@@ -40,15 +40,21 @@ router.post('/', function(req, res, next) {
 router.get('/:id', function(req, res, next) { 
 
   console.log(req.params);
+  const id = parseInt(req.params.id);
 
-  let contact = {
-    id: req.params.id,
-    name: 'Arun',
-    phone: 12323323,
-    email: 'a@b.com'
-  };
-
-  res.json(contact);
+  // check whether the type of params is number or not and proceed
+  if(!isNaN(id)){
+    contactService.getContactById(req.params.id, (err, data) => {
+      if(!err){
+        res.json(data);
+      }else{
+        res.json(err);
+      }
+    });
+  }else{
+    res.json({status: 'Invalid Contact ID'});
+  }
+  
 });
 
 /* PUT api/contacts/:id */
@@ -59,13 +65,23 @@ router.put('/:id', function(req, res, next){
   console.log(req.params);
   console.log(req.body);
 
-  res.json({
-    status: 'Updated successfully!',
-    ...req.body,
-    id: req.params.id
-  });
+  const id = parseInt(req.params.id);
 
+  if(!isNaN(id)){
+    contactService.updateContact(id, req.body, (err, data) => {
+      if(!err){
+        res.json(data);
+      }else{
+        res.json(err);
+      }
+    });
+  }else{
+    res.json({status: 'Invalid Contact ID'});
+  }
 });
+
+
+
 
 // TODO: Try patch method 
 
