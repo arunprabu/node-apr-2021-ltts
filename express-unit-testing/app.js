@@ -4,17 +4,14 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-///
 var indexRouter = require('./routes/index');
-const contactsRouter = require('./routes/api/contacts');
-//const accountsRouter = require('./routes/api/accounts');
-const usersRouter = require('./routes/api/users');
+var usersRouter = require('./routes/users');
 
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -22,15 +19,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(cors())
-
 app.use('/', indexRouter);
-
-// API Endpoints
-app.use('/api/contacts', contactsRouter);
-app.use('/api/users', usersRouter);
-//app.use('/api/accounts', accountsRouter);
-
+app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

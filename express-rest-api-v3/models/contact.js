@@ -14,6 +14,8 @@ const Contact = new Schema(
     phone: Number,
     email: String,
     status: String,
+    hash: String,
+    salt: String,
     createdBy: String,
     createdOn: { type: Date, default: Date.now },
     updatedBy: String,

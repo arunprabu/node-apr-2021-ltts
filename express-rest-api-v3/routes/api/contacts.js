@@ -3,6 +3,24 @@ var router = express.Router();
 
 const contactService = require('../../services/contactService'); // 1. Connect with the service
 
+// For File uploading using multer
+var multer  = require('multer');
+
+//var upload = multer({ dest: './public/data/uploads/' });
+
+// if you want to have control over the saved file name
+var storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+      cb(null, './public/data/uploads/');
+   },
+  filename: function (req, file, cb) {
+      cb(null , file.originalname);
+  }
+});
+
+var upload = multer({ storage: storage });
+
+
 /* GET api/contacts . */
 // Listing all contacts
 router.get('/', function(req, res, next) {
@@ -93,6 +111,17 @@ router.delete('/:id', function(req, res, next) {
   console.log(req.params);
 
   res.json({status: `Contact ID ${req.params.id} has been deleted Successfully`});
+});
+
+
+
+// api/contacts/profile
+router.post('/profile', upload.single('profilePic'), function(req, res, next) {
+  try {
+    res.send(req.file);
+  }catch(err) {
+    res.send(400);
+  }
 });
 
 module.exports = router;
