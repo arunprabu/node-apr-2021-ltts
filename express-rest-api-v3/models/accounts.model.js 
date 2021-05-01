@@ -1,3 +1,6 @@
+// This is incomplete -- For Reference Purpose 
+// This file is not used anywhere.
+
 var dbConn  = require('../config/mysqlConfig');
 
 var Employee = function(employee){

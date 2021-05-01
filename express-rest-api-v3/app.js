@@ -7,7 +7,8 @@ var logger = require('morgan');
 ///
 var indexRouter = require('./routes/index');
 const contactsRouter = require('./routes/api/contacts');
-const accountsRouter = require('./routes/api/accounts');
+//const accountsRouter = require('./routes/api/accounts');
+const usersRouter = require('./routes/api/users');
 
 var app = express();
 
@@ -25,7 +26,9 @@ app.use('/', indexRouter);
 
 // API Endpoints
 app.use('/api/contacts', contactsRouter);
-app.use('/api/accounts', accountsRouter);
+app.use('/api/users', usersRouter);
+//app.use('/api/accounts', accountsRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

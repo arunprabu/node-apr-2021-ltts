@@ -1,8 +1,10 @@
-var process = require("process");
-var mongoose = require("mongoose");
-var mongoConfig = require("../config/mongoConfig.json");
+const process = require("process");
+const mongoose = require("mongoose");
+const autoIncrement = require('mongoose-auto-increment');
 
-var dbURI = mongoConfig.url;
+const mongoConfig = require("../config/mongoConfig.json");
+
+const dbURI = mongoConfig.url;
 
 mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true});
 
@@ -29,4 +31,5 @@ process.on('SIGINT', function() {
   }); 
 }); 
 
+autoIncrement.initialize(mongoose.connection);
 module.exports = mongoose;
